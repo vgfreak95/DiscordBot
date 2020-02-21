@@ -5,6 +5,18 @@ import DNDBotAPI
 import mysql.connector
 import os
 import subprocess
+import json
+
+token = ""
+prefix = ""
+
+with open('config.json') as json_file:
+    data = json.load(json_file)
+    token = str(data['config'][0]['token'])
+    prefix = str(data['config'][0]['prefix'])
+
+
+
 
 cnx = mysql.connector.connect(user='root', password='1234',
                               host='127.0.0.1',
@@ -12,7 +24,7 @@ cnx = mysql.connector.connect(user='root', password='1234',
                               auth_plugin='mysql_native_password')
 cursor = cnx.cursor()
 
-client = commands.Bot(command_prefix = '!')
+client = commands.Bot(command_prefix = prefix)
 
 isBotOn = True
 
@@ -242,4 +254,4 @@ Charisma = {x[7]}
         await(ctx.send(embed=embed))
 
 
-client.run('Njc2OTc3MjI1NzgyMDAxNjY1.XkNiNg.DOsjZ45JiVtnNSmnrejCJFVMOvQ');
+client.run(token)
